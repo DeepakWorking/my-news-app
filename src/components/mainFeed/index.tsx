@@ -1,3 +1,4 @@
+import Error from '@components/errorPage';
 import NewsFeedFilters from '@components/newsFeedFilter';
 import { NEWS_API_ORG_SOURCES } from '@constants/feed.constants';
 import { useFeedFilters } from '@contexts/feedFilterContext';
@@ -23,7 +24,7 @@ const MainFeed = () => {
   const {
     isLoading: categoryIsLoading,
     data: categoryData,
-    error: categoryError,
+    isError: categoryError,
   } = useGetNewsForSections(
     {
       pageSize: 20,
@@ -31,13 +32,13 @@ const MainFeed = () => {
       category: selectedCategory || undefined,
     },
     {
-      enabled: isSectionNews,
+      enabled: isSectionNews
     },
   );
   const {
     isLoading: allSourceIsLoading,
     data: allSourcesData,
-    error: allSourceError,
+    isError: allSourceError,
   } = useGetNewsForHome(
     {
       pageSize: 20,
@@ -45,7 +46,6 @@ const MainFeed = () => {
       sources: selectedSources.length
         ? selectedSources.join(',')
         : getAllSources(),
-      //country: "us", // Implement country selection
     },
     {
       enabled: isAllSourceNews,
@@ -74,14 +74,17 @@ const MainFeed = () => {
     ...(isSearchNews ? searchData ?? [] : []),
     ...(isUserFeed ? userData ?? [] : [])
   ];
+  console.log('error', categoryError, allSourceError, searchError, userDataError)
+  console.log('loading', categoryIsLoading, allSourceIsLoading, searchIsLoading, userDataIsLoading)
+  if (categoryError || allSourceError || searchError || userDataError) return <Error />
   return (
     <main className="px-2">
       {
         selectedCategory === TFeedCategories.ALL_NEWS && <NewsFeedFilters />
       }
       <div className="grid grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {newsData?.map((news: TNewsAPIArticle) => (
-          <NewsCardItem key={news.title} news={news} />
+        {newsData?.map((news: TNewsAPIArticle, index) => (
+          <NewsCardItem key={`${news.url}-${index}`} news={news} />
         ))}
       </div>
     </main>

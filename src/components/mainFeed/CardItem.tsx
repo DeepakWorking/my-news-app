@@ -1,11 +1,10 @@
 import ArrowIcon from '@components/shared/icons/ArrowIcon';
 import PersonIcon from '@components/shared/icons/PersonIcon';
 import { getFormattedDate } from '@utils/dateTime.utils';
-import React from 'react';
 import { twMerge } from 'tailwind-merge';
 import { TNewsAPIArticle } from 'types/newApi.types';
 
-const NewsCardItem: React.FC<{ news: TNewsAPIArticle }> = ({ news }) => {
+const NewsCardItem = ({ news }: { news: TNewsAPIArticle }) => {
   return (
     <article
       className={twMerge(
@@ -19,11 +18,19 @@ const NewsCardItem: React.FC<{ news: TNewsAPIArticle }> = ({ news }) => {
         rel="noopener noreferrer"
         className="w-full flex-shrink-0 sm:w-1/3 md:w-full"
       >
-        <img
-          className="h-40 w-full rounded-t-lg object-cover sm:h-full sm:rounded-l-lg sm:rounded-t-none md:h-40 md:rounded-lg"
-          src={news.urlToImage}
-          alt={news.title}
-        />
+        {
+          news.urlToImage ?
+            <img
+              className="h-40 w-full rounded-t-lg object-cover sm:h-full sm:rounded-l-lg sm:rounded-t-none md:h-40 md:rounded-lg"
+              src={news.urlToImage}
+              alt={news.title}
+            />
+            : <img
+              className="h-40 w-full rounded-t-lg object-cover sm:h-full sm:rounded-l-lg sm:rounded-t-none md:h-40 md:rounded-lg"
+              alt={news.title}
+            />
+        }
+
       </a>
       <div className="flex flex-1 flex-col justify-between p-4">
         <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
