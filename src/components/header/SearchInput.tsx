@@ -1,64 +1,91 @@
+import CrossIcon from '@components/shared/icons/CrossIcon';
 import SearchIcon from '@components/shared/icons/SearchIcon';
 import { useFeedFilters } from '@contexts/feedFilterContext';
-import useDebouncedCallback from '@hooks/useDebouncedCallback';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 const SearchInput = () => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const { setSearchQuery, setSelectedCategory } = useFeedFilters();
+  const [inputValue, setInputValue] = useState('');
 
-  const {
-    setSearchQuery,
-    setSelectedCategory,
-    searchQuery
-  } = useFeedFilters()
-  const debouncedSetQuery = useDebouncedCallback((value: string) => {
-    setSearchQuery(value);
-    setSelectedCategory(null)
-  }, 300);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    debouncedSetQuery(value);
+  const handleSearch = () => {
+    setSearchQuery(inputValue);
+    setSelectedCategory(null);
   };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSearch();
+    }
+  };
+
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
       if (e.ctrlKey && e.key === 'k') {
         e.preventDefault();
         inputRef.current?.focus();
       }
     };
-
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleGlobalKeyDown);
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keydown', handleGlobalKeyDown);
     };
   }, []);
+  const handleClear = () => {
+    setInputValue('');
+    inputRef.current?.focus();
+  };
+
   return (
-    <form className="mx-4 w-full max-w-md">
-      <label className="sr-only mb-2 text-sm font-medium text-gray-900 dark:text-white">
-        Search
-      </label>
-      <div className="relative">
-        <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3 gap-x-2">
-          <SearchIcon />
-        </div>
+    <form
+      className="relative mx-4 w-full max-w-md"
+    >
+      <div className="relative flex items-center">
         <input
-          type="search"
-          id="default-search"
-          className="
-            block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 pl-12 text-sm text-gray-900 
-            focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 
-            dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500
-          "
-          placeholder="Search topics, locations, & Keywords..."
-          value={searchQuery}
-          onChange={handleChange}
-          required
+          type="text"
+          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 pl-4 pr-20 text-sm text-gray-900
+          focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 
+          dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+          placeholder="Search topics, locations, & keywords..."
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={handleKeyDown}
           ref={inputRef}
         />
-        <div className="pointer-events-none absolute inset-y-0 end-0 flex items-center pr-3 gap-x-2">
-          <span className='text-xs sm:hidden md:block text-gray-900 dark:text-white font-serif font-medium'>CTRL+K</span>
-        </div>
+
+        {!inputValue && (
+          <div className="absolute right-14 top-1/2 -translate-y-1/2 hidden sm:flex items-center bg-gray-200 dark:bg-gray-600 text-xs text-gray-700 dark:text-gray-300 px-2 py-1 rounded-md">
+            CTRL + K
+          </div>
+        )}
+        {inputValue && (
+          <button
+            type="button"
+            onClick={handleClear}
+            className="absolute right-12 top-1/2 -translate-y-1/2 px-2 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+          >
+            <CrossIcon />
+          </button>
+        )}
+
+        <button
+          type='button'
+          onClick={(e) => {
+            e.preventDefault();
+            handleSearch()
+          }}
+          disabled={!inputValue}
+          className={
+            twMerge(
+              "absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700",
+              !inputValue && "opacity-50 pointer-events-none"
+            )
+          }>
+          <SearchIcon />
+          <span className="sr-only">Search</span>
+        </button>
       </div>
     </form>
   );

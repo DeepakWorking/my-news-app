@@ -18,11 +18,11 @@ export const CATEGORIES_LIST: TFeedCategoryItem[] = [
 
 type NewsSource = {
   name: string;
-  domain: string;
+  domain?: string;
   id: TNewsSourceKey;
 };
 
-export const NEWS_API_ORG_SOURCES: Record<TNewsSourceKey, NewsSource> = {
+export const NEWS_API_ORG_SOURCES: Partial<Record<TNewsSourceKey, NewsSource>> = {
   [TNewsSourceKey.BBC_NEWS]: {
     name: 'BBC News',
     domain: 'bbc.com',
@@ -124,3 +124,16 @@ export const NEWS_API_ORG_SOURCES: Record<TNewsSourceKey, NewsSource> = {
     id: TNewsSourceKey.NPR,
   },
 };
+export const NEWS_SOURCES: Array<{ id: TNewsSourceKey; name: string }> = [
+  { id: TNewsSourceKey.NYT, name: "The New York Times" },
+  { id: TNewsSourceKey.GUARDIAN, name: "The Guardian" },
+  { id: TNewsSourceKey.NEWS_API, name: "NewsAPI" },
+];
+export const GUARDIAN_CATEGORY_PARAM_MAPS: Partial<Record<TFeedCategories, string>> = {
+  [TFeedCategories.BUSINESS]: 'business',
+  [TFeedCategories.ENTERTAINMENT]: 'films',
+  [TFeedCategories.HEALTH]: 'healthcare-network',
+  [TFeedCategories.SPORTS]: 'sport',
+  [TFeedCategories.TECHNOLOGY]: 'technology',
+  [TFeedCategories.SCIENCE]: 'science',
+}

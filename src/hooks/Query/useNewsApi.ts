@@ -2,8 +2,8 @@ import {
   fetchNewsApiNews,
   fetchNewsApiTopHeadlines,
 } from '@services/newsApi.service';
-import { useQuery } from './index';
 import { TNewAPIParams, TNewsAPIResponse } from 'types/newApi.types';
+import { useQuery } from './index';
 
 type TUseGetNewsForCategory = Omit<TNewAPIParams, 'sources'>;
 export const useGetNewsForSections = (

@@ -1,6 +1,6 @@
 import SearchInput from '@components/header/SearchInput';
 import GitHubIcon from '@components/shared/icons/GithubIcon';
-import SettingsIcon from '@components/shared/icons/SettingsIcon';
+import UserSettings from '@components/userSettings';
 import Button from '@ui/Button';
 
 const Header = () => {
@@ -11,9 +11,7 @@ const Header = () => {
         <SearchInput />
         <div className="flex gap-x-4">
           <Button variant='link' className='underline'>Subscribe</Button>
-          <Button variant="outlined">
-            <SettingsIcon />
-          </Button>
+          <UserSettings />
           <Button variant="outlined"><GitHubIcon /> </Button>
         </div>
       </div>

@@ -14,6 +14,8 @@ export type TFeedCategoryItem = {
   label: string;
 };
 export enum TNewsSourceKey {
+  NEWS_API = 'newsapi',
+  GUARDIAN = 'guardian',
   BBC_NEWS = 'bbc-news',
   CNN = 'cnn',
   REUTERS = 'reuters',
