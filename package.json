@@ -10,7 +10,8 @@
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "preview": "vite preview",
     "prettier": "prettier --write 'src/**/*.{ts,tsx}'",
-    "lint:fix": "eslint --fix 'src/**/*.{ts,tsx}'"
+    "lint:fix": "eslint --fix 'src/**/*.{ts,tsx}'",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.6",
