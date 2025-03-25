@@ -36,12 +36,12 @@ export const useSearchNewQuery = (
 
   const [newsApiResult, guardianResult, nytResult] = queries;
   const isLoading = queries.some((q) => q.isLoading);
-  const isError = queries.some((q) => q.isError);
+  const isError = queries.every((q) => q.isError);
 
   const data: TNewsAPIArticle[] = [
-    ...(newsApiResult.data as TNewsAPIArticle[] ?? []),
     ...(guardianResult.data as TNewsAPIArticle[] ?? []),
     ...(nytResult.data as TNewsAPIArticle[] ?? []),
+    ...(newsApiResult.data as TNewsAPIArticle[] ?? []),
   ];
   return { data, isLoading, isError };
 };

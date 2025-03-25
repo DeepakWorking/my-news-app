@@ -1,9 +1,7 @@
-import DatePicker from '@components/shared/ui/DatePicker';
 import Dropdown from '@components/shared/ui/Dropdown';
 import { NEWS_API_ORG_SOURCES } from '@constants/feed.constants';
 import { useFeedFilters } from '@contexts/feedFilterContext';
 import { TNewsSourceKey } from '@types/feed.types';
-import { getFormattedDate } from '@utils/dateTime.utils';
 import { useMemo } from 'react';
 type TDropdownOption<T> = { label: string; value: T };
 const NewsFeedFilters = () => {
@@ -17,7 +15,7 @@ const NewsFeedFilters = () => {
     [],
   );
   return (
-    <div className="mx-auto flex max-w-screen-2xl flex-wrap items-end justify-between p-4">
+    <div className="mx-auto flex max-w-screen-2xl flex-wrap items-end justify-between">
       <div className="flex items-end gap-4">
         <Dropdown
           isMulti
@@ -31,7 +29,7 @@ const NewsFeedFilters = () => {
             );
           }}
         />
-        <DatePicker maxDate={getFormattedDate(new Date(), 'YYYY-MM-DD')} />
+        {/* <DatePicker maxDate={getFormattedDate(new Date(), 'YYYY-MM-DD')} /> */}
       </div>
     </div>
   );

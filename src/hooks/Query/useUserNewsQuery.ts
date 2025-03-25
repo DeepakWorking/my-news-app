@@ -70,7 +70,7 @@ export const useUserNewsQuery = (
     });
 
     const isLoading = queries.some((q) => q.isLoading);
-    const isError = queries.some((q) => q.isError);
+    const isError = queries.every((q) => q.isError);
     let data: TNewsAPIArticle[] = [];
     queries.forEach((query) => data.push(...(query.data as TNewsAPIArticle[] ?? [])));
 

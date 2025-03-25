@@ -11,7 +11,7 @@ const UserSettings = () => {
 
     return (
         <>
-            <Button variant="outlined" onClick={() => setIsOpen(true)}>
+            <Button variant="outlined" onClick={() => setIsOpen(true)} className='px-2 py-2 rounded-full'>
                 <SettingsIcon />
             </Button>
             <Modal open={isOpen} onOpenChange={setIsOpen} className="text-sm">

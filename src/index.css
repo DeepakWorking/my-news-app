@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom Scrollbar for Light Mode */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 50px;
+    /* Scrollbar width */
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    /* Light mode track color (Tailwind gray-200) */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #9ca3af;
+    /* Light mode thumb color (Tailwind gray-400) */
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+    /* Darker shade on hover (Tailwind gray-600) */
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    /* Dark mode thumb color (Tailwind gray-700) */
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+    /* Slightly lighter gray on hover */
+}
