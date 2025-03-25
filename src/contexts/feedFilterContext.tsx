@@ -1,5 +1,5 @@
-import { TFeedCategories, TNewsSourceKey } from '@types/feed.types';
 import { createContext, useContext, useState } from 'react';
+import { TFeedCategories, TNewsSourceKey } from 'types/feed.types';
 
 type FeedFiltersContextType = {
   searchQuery: string;

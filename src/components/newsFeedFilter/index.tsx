@@ -1,8 +1,8 @@
 import Dropdown from '@components/shared/ui/Dropdown';
 import { NEWS_API_ORG_SOURCES } from '@constants/feed.constants';
 import { useFeedFilters } from '@contexts/feedFilterContext';
-import { TNewsSourceKey } from '@types/feed.types';
 import { useMemo } from 'react';
+import { TNewsSourceKey } from 'types/feed.types';
 type TDropdownOption<T> = { label: string; value: T };
 const NewsFeedFilters = () => {
   const { setSelectedSources } = useFeedFilters();

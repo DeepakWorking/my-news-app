@@ -46,7 +46,7 @@ export type TNytDoc = {
 export type TNytResponse = {
   response: {
     docs: TNytDoc[];
-  }
+  };
 };
 export type TGuardianFields = {
   byline: string;
@@ -65,5 +65,6 @@ export type TGuardianResult = {
 export type TGuardianResponse = {
   response: {
     results: TGuardianResult[];
-  }
+  };
 };
+export {};

@@ -6,31 +6,35 @@ import Subscribe from './Subscribe';
 
 const Header = () => {
   return (
-    <header className="border-b-2 border-solid border-gray-200 px-2 py-2 dark:border-gray-700 sticky top-0 z-50 bg-white dark:bg-gray-900">
+    <header className="sticky top-0 z-50 border-b-2 border-solid border-gray-200 bg-white px-2 py-2 dark:border-gray-700 dark:bg-gray-900">
       <div className="flex items-center justify-between gap-4">
-        <h1 className="text-lg font-bold whitespace-nowrap flex items-center gap-2">
+        <h1 className="flex items-center gap-2 whitespace-nowrap text-lg font-bold">
           <img
             src="https://img.icons8.com/arcade/64/real-time-news.png"
             alt="Newspaper Icon"
-            className="w-6 h-6"
+            className="h-6 w-6"
           />
           <span className="hidden sm:inline">ABC News</span>
         </h1>
-        <div className="flex-1 mx-auto flex justify-center">
+        <div className="mx-auto flex flex-1 justify-center">
           <SearchInput />
         </div>
         <div className="flex items-center gap-2">
           <Subscribe />
           <UserSettings />
-          <Button variant="outlined" className="px-2 py-2 rounded-full" onClick={(e) => {
-            e.preventDefault();
-            window.open('https://github.com/DeepakWorking/my-news-app')
-          }}>
+          <Button
+            variant="outlined"
+            className="rounded-full px-2 py-2"
+            onClick={(e) => {
+              e.preventDefault();
+              window.open('https://github.com/DeepakWorking/my-news-app');
+            }}
+          >
             <GitHubIcon />
           </Button>
         </div>
       </div>
-    </header >
+    </header>
   );
 };
 

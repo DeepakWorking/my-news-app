@@ -7,14 +7,15 @@ import {
 } from '@hooks/Query/useNewsApi';
 import { useSearchNewQuery } from '@hooks/Query/useSearchNews';
 import { useUserNewsQuery } from '@hooks/Query/useUserNewsQuery';
-import { TFeedCategories } from '@types/feed.types';
+import { TFeedCategories } from 'types/feed.types';
 import { TNewsAPIArticle } from 'types/newApi.types';
 import NewsCardItem from './CardItem';
 import SkeletonList from './CardSkeletonList';
 const getAllSources = () => Object.keys(NEWS_API_ORG_SOURCES).join(',');
 const MainFeed = () => {
   const { selectedCategory, selectedSources, searchQuery } = useFeedFilters();
-  const isSectionNews = !!selectedCategory &&
+  const isSectionNews =
+    !!selectedCategory &&
     ![TFeedCategories.MY_FEED, TFeedCategories.ALL_NEWS].includes(
       selectedCategory,
     );
@@ -25,7 +26,7 @@ const MainFeed = () => {
     isLoading: categoryIsLoading,
     data: categoryData,
     isError: isCategoryError,
-    error: categoryError
+    error: categoryError,
   } = useGetNewsForSections(
     {
       pageSize: 20,
@@ -33,14 +34,14 @@ const MainFeed = () => {
       category: selectedCategory || undefined,
     },
     {
-      enabled: isSectionNews
+      enabled: isSectionNews,
     },
   );
   const {
     isLoading: allSourceIsLoading,
     data: allSourcesData,
     isError: isAllSourceError,
-    error: allSourceError
+    error: allSourceError,
   } = useGetNewsForHome(
     {
       pageSize: 20,
@@ -57,19 +58,29 @@ const MainFeed = () => {
     isLoading: searchIsLoading,
     data: searchData,
     isError: isSearchError,
-  } = useSearchNewQuery({
-    pageSize: 20,
-    page: 1,
-    q: searchQuery,
-  }, {
-    enabled: isSearchNews,
-  });
-  const { data: userData, isLoading: userDataIsLoading, isError: userDataError } = useUserNewsQuery({
-    page: 1,
-    pageSize: 20
-  }, {
-    enabled: isUserFeed
-  })
+  } = useSearchNewQuery(
+    {
+      pageSize: 20,
+      page: 1,
+      q: searchQuery,
+    },
+    {
+      enabled: isSearchNews,
+    },
+  );
+  const {
+    data: userData,
+    isLoading: userDataIsLoading,
+    isError: userDataError,
+  } = useUserNewsQuery(
+    {
+      page: 1,
+      pageSize: 20,
+    },
+    {
+      enabled: isUserFeed,
+    },
+  );
   const getNewsData = () => {
     if (isSectionNews) return categoryData?.articles ?? [];
     if (isAllSourceNews) return allSourcesData?.articles ?? [];
@@ -82,8 +93,18 @@ const MainFeed = () => {
     if (isAllSourceNews) return allSourceError;
     return undefined;
   };
-  if ((isSectionNews && isCategoryError) || (isAllSourceNews && isAllSourceError) || (isSearchNews && isSearchError) || (isUserFeed && userDataError)) return <Error message={getError()?.message} />
-  const isLoading = categoryIsLoading || searchIsLoading || allSourceIsLoading || userDataIsLoading
+  if (
+    (isSectionNews && isCategoryError) ||
+    (isAllSourceNews && isAllSourceError) ||
+    (isSearchNews && isSearchError) ||
+    (isUserFeed && userDataError)
+  )
+    return <Error message={getError()?.message} />;
+  const isLoading =
+    categoryIsLoading ||
+    searchIsLoading ||
+    allSourceIsLoading ||
+    userDataIsLoading;
   return (
     <div className="grid grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {isLoading ? (

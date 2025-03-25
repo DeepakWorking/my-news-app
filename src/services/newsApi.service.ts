@@ -5,18 +5,18 @@ import axios from 'axios';
 import { TNewAPIParams } from 'types/newApi.types';
 
 export const fetchNewsApiTopHeadlines = async (params: TNewAPIParams) => {
-    return axios.get(`${BASE_URL}/top-headlines`, {
-        params: {
-            ...params,
-            apiKey: API_KEY,
-        },
-    });
+  return axios.get(`${BASE_URL}/top-headlines`, {
+    params: {
+      ...params,
+      apiKey: API_KEY,
+    },
+  });
 };
 export const fetchNewsApiNews = async (params: TNewAPIParams) => {
-    return axios.get(`${BASE_URL}/everything`, {
-        params: {
-            ...params,
-            apiKey: API_KEY,
-        },
-    });
+  return axios.get(`${BASE_URL}/everything`, {
+    params: {
+      ...params,
+      apiKey: API_KEY,
+    },
+  });
 };

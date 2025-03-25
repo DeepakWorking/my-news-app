@@ -7,7 +7,7 @@ export enum TFeedCategories {
   SPORTS = 'sports',
   TECHNOLOGY = 'technology',
   MY_FEED = 'my_feed',
-  ALL_NEWS = 'all_news'
+  ALL_NEWS = 'all_news',
 }
 export type TFeedCategoryItem = {
   id: TFeedCategories;
@@ -37,3 +37,4 @@ export enum TNewsSourceKey {
   THE_TELEGRAPH = 'the-telegraph',
   NPR = 'npr',
 }
+export {};

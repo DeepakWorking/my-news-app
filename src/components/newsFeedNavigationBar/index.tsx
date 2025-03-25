@@ -2,8 +2,8 @@ import NewsFeedFilters from '@components/newsFeedFilter';
 import CategoryList from '@components/newsFeedNavigationBar/CategoryList';
 import HamburgerIcon from '@components/shared/icons/HamburgerIcon';
 import { useFeedFilters } from '@contexts/feedFilterContext';
-import { TFeedCategories } from '@types/feed.types';
 import Popover from '@ui/Popover';
+import { TFeedCategories } from 'types/feed.types';
 
 const NewsFeedNavigationBar = () => {
   const { selectedCategory } = useFeedFilters();
@@ -15,7 +15,7 @@ const NewsFeedNavigationBar = () => {
           <Popover
             trigger={
               <button
-                className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
+                className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 focus:ring-2 focus:ring-gray-200 md:hidden dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 aria-label="Toggle navigation"
               >
                 <HamburgerIcon />
