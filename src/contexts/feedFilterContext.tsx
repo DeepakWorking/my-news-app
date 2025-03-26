@@ -24,7 +24,7 @@ export const FeedFiltersProvider = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSources, setSelectedSources] = useState<TNewsSourceKey[]>([]);
   const [selectedCategory, setSelectedCategory] =
-    useState<TFeedCategories | null>(TFeedCategories.ALL_NEWS);
+    useState<TFeedCategories | null>(TFeedCategories.GENERAL);
   const [selectedDate, setSelectedDate] = useState('');
 
   return (
