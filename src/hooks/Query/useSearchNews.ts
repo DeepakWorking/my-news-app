@@ -9,6 +9,7 @@ import {
 import {
   TGuardianResponse,
   TNewsAPIArticle,
+  TNewsAPIResponse,
   TNytResponse,
   TUseSearchNewsQueryParamas,
 } from 'types/newApi.types';
@@ -23,7 +24,7 @@ export const useSearchNewQuery = (
       {
         queryKey: ['searchNewsApi', params.pageSize, params.page, params.q],
         queryFn: () => fetchNewsApiNews(params),
-        select: (data) => createNewsDataForNewsApi(data),
+        select: (data) => createNewsDataForNewsApi((data as { data: TNewsAPIResponse }).data),
         enabled: options?.enabled,
       },
       {

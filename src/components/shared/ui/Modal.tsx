@@ -38,7 +38,7 @@ const ModalHeader = ({
   onClose?: () => void;
 }) => {
   return (
-    <div className="flex items-center justify-between border-b border-gray-200 p-4 md:p-5 dark:border-gray-600">
+    <Dialog.DialogTitle title={title} className="flex items-center justify-between border-b border-gray-200 p-4 md:p-5 dark:border-gray-600">
       {title && (
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
           {title}
@@ -52,7 +52,7 @@ const ModalHeader = ({
           <CrossIcon className="h-5 w-5" />
         </button>
       )}
-    </div>
+    </Dialog.DialogTitle>
   );
 };
 

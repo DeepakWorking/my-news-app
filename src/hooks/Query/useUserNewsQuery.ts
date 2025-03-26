@@ -5,12 +5,14 @@ import { fetchNytNewsForSearch } from '@services/nytNews.service';
 import userPreference from '@services/userPreference.service';
 import {
   createNewsDataForGuardian,
+  createNewsDataForNewsApi,
   createNewsDataForNyt,
 } from '@utils/newsFeed.utils';
 import { TNewsSourceKey } from 'types/feed.types';
 import {
   TGuardianResponse,
   TNewsAPIArticle,
+  TNewsAPIResponse,
   TNytResponse,
   TUseSearchNewsQueryParamas,
 } from 'types/newApi.types';
@@ -40,8 +42,7 @@ export const useUserNewsQuery = (
             country: countryCode,
           });
         },
-        select: (data: unknown) =>
-          (data as { articles: TNewsAPIArticle[] }).articles,
+        select: (data: unknown) => createNewsDataForNewsApi((data as { data: TNewsAPIResponse }).data),
         enabled: options?.enabled,
       });
     });

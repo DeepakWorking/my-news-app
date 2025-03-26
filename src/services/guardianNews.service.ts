@@ -11,7 +11,7 @@ export const fetchGuardianNewsForSearch = async (
 ) => {
   return axios.get(`${BASE_URL}//search`, {
     params: {
-      params,
+      ...params,
       ['api-key']: API_KEY,
       ['show-fields']: 'thumbnail',
     },

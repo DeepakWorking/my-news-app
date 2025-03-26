@@ -1,4 +1,4 @@
-import Error from '@components/errorPage';
+import ErrorPage from '@components/errorBoundary/ErrorPage';
 import { NEWS_API_ORG_SOURCES } from '@constants/feed.constants';
 import { useFeedFilters } from '@contexts/feedFilterContext';
 import {
@@ -26,12 +26,11 @@ const MainFeed = () => {
     isLoading: categoryIsLoading,
     data: categoryData,
     isError: isCategoryError,
-    error: categoryError,
   } = useGetNewsForSections(
     {
       pageSize: 20,
       page: 1,
-      category: selectedCategory || undefined,
+      category: selectedCategory as TFeedCategories,
     },
     {
       enabled: isSectionNews,
@@ -82,14 +81,13 @@ const MainFeed = () => {
     },
   );
   const getNewsData = () => {
-    if (isSectionNews) return categoryData?.articles ?? [];
+    if (isSectionNews) return categoryData ?? [];
     if (isAllSourceNews) return allSourcesData?.articles ?? [];
     if (isSearchNews) return searchData ?? [];
     if (isUserFeed) return userData ?? [];
     return [];
   };
   const getError = () => {
-    if (isSectionNews) return categoryError;
     if (isAllSourceNews) return allSourceError;
     return undefined;
   };
@@ -99,12 +97,13 @@ const MainFeed = () => {
     (isSearchNews && isSearchError) ||
     (isUserFeed && userDataError)
   )
-    return <Error message={getError()?.message} />;
+    return <ErrorPage message={getError()?.message} />;
   const isLoading =
     categoryIsLoading ||
     searchIsLoading ||
     allSourceIsLoading ||
     userDataIsLoading;
+
   return (
     <div className="grid grid-cols-1 gap-6 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {isLoading ? (
